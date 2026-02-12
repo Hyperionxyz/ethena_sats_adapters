@@ -37,27 +37,33 @@ async function getStrategy() {
 
   for (const ownerAddress in ownerObjectIds) {
     const objectIds = ownerObjectIds[ownerAddress];
+    let totalAmount = 0;
 
     for (const objectId of objectIds) {
-      let [susdeAmount, usdcAmount] = await client.view<any[]>({
-        payload: {
-          function: `${HYPERION_DEX_ADDRESS}::router_v3::get_amount_by_liquidity`,
-          functionArguments: [objectId],
-        },
-        options: { ledgerVersion: block },
-      });
+      try {
+        let [susdeAmount, usdcAmount] = await client.view<any[]>({
+          payload: {
+            function: `${HYPERION_DEX_ADDRESS}::router_v3::get_amount_by_liquidity`,
+            functionArguments: [objectId],
+          },
+          options: { ledgerVersion: block },
+        });
 
-      let [swapUsdcAmount] = await client.view<any[]>({
-        payload: {
-          function: `${HYPERION_DEX_ADDRESS}::pool_v3::get_amount_out`,
-          functionArguments: [susdeUsdcPool, susdeObjectId, susdeAmount],
-        },
-        options: { ledgerVersion: block },
-      });
+        let [swapUsdcAmount] = await client.view<any[]>({
+          payload: {
+            function: `${HYPERION_DEX_ADDRESS}::pool_v3::get_amount_out`,
+            functionArguments: [susdeUsdcPool, susdeObjectId, susdeAmount],
+          },
+          options: { ledgerVersion: block },
+        });
 
-      let totalAmount = usdcAmount + swapUsdcAmount;
-      user_balances[ownerAddress] = scaleDownByDecimals(totalAmount, decimals);
+        totalAmount = totalAmount + usdcAmount + swapUsdcAmount;
+      } catch (e) {
+        console.error(e);
+      }
     }
+
+    user_balances[ownerAddress] = scaleDownByDecimals(totalAmount, decimals);
   }
 
   console.log(JSON.stringify(user_balances));

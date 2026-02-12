@@ -1,0 +1,5 @@
+SUSDE_ADDRESS = "0xb30a694a344edee467d9f82330bbe7c3b89f440a1ecd2da1f3bca266560fce69"
+
+HYPERION_DEX_ADDRESS = "0x8b4a2c4bb53857c718a04c020b98f8c2e1f99a68b0f57389a8bf5434cd22e05c"
+
+HYPERION_ADDRESS_API_URL="https://api.hyperion.xyz/base/data/susde/objects"

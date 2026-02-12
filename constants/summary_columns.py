@@ -21,6 +21,8 @@ class SummaryColumn(Enum):
 
     THALA_SHARDS = ("thala_shards", SummaryColumnType.ETHENA_PTS)
 
+    HYPERION_SHARDS = ("hyperion_shards", SummaryColumnType.ETHENA_PTS)
+
     ECHELON_SHARDS = ("echelon_shards", SummaryColumnType.ETHENA_PTS)
 
     NURI_SHARDS = ("nuri_shards", SummaryColumnType.ETHENA_PTS)

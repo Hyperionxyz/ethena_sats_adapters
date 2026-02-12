@@ -74,6 +74,13 @@ class IntegrationID(Enum):
         Token.SUSDE,
     )
 
+    # Hyperion
+    HYPERION_SUSDE_LP = (
+        "hyperion_susde_usdc_lp",
+        "hyperion sUSDe/USDC LP",
+        Token.SUSDE,
+    )
+
     # Echelon
     ECHELON_SUSDE_COLLATERAL = (
         "echelon_susde_collateral",
